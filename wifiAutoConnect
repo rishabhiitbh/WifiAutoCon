@@ -1,0 +1,13 @@
+#!/bin/bash
+while true
+do 
+	i=$(ping -w 5 8.8.8.8)
+	unr=$(echo "$i"| grep -i unreachable |wc -l )
+	ret=$(echo "$i"| grep -i icmp |wc -l )
+	if [ "$unr" -gt 0 ] || [ "$ret" -eq 0 ];
+	then
+		nmcli radio wifi off 
+		nmcli radio wifi on  
+		sleep 30
+	fi
+done
